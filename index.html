@@ -116,11 +116,10 @@
         font-weight: 600;
         cursor: pointer;
         margin: 8px;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         text-transform: uppercase;
         letter-spacing: 1px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        position: absolute;
     }
 
     button:active {
@@ -130,7 +129,6 @@
     #okBtn {
         background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
         color: white;
-        left: 20px;
         min-width: 120px;
     }
 
@@ -143,9 +141,9 @@
     #noBtn {
         background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
         color: white;
-        position: absolute;
-        right: 20px;
+        position: fixed;
         min-width: 120px;
+        z-index: 999;
     }
 
     #noBtn:hover {
@@ -310,6 +308,7 @@
         .button-container {
             gap: 10px;
             margin: 25px 0;
+            height: auto;
         }
 
         button {
@@ -320,12 +319,11 @@
 
         #okBtn {
             min-width: 100px;
-            left: 10px;
+            position: relative;
         }
 
         #noBtn {
             min-width: 100px;
-            right: 10px;
         }
 
         #message {
@@ -387,15 +385,15 @@
         .button-container {
             gap: 8px;
             margin: 20px 0;
-            height: 50px;
+            height: auto;
         }
 
         #okBtn {
-            left: 5px;
+            position: relative;
         }
 
         #noBtn {
-            right: 5px;
+            position: fixed;
         }
 
         .modal-content {
@@ -456,22 +454,19 @@
 
 <script>
 const noBtn = document.getElementById("noBtn");
-const container = document.querySelector(".button-container");
 let clickCount = 0;
 
 function moveButton() {
-    const containerRect = container.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
-
-    // Get random position within container
-    const maxX = containerRect.width - btnRect.width - 20;
-    const maxY = containerRect.height - btnRect.height - 20;
+    // Get random position within viewport
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
 
-    // Use transform for smoother movement
-    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    // Set position using fixed positioning
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
     
     clickCount++;
 }
@@ -482,6 +477,7 @@ noBtn.addEventListener("mouseenter", moveButton);
 // Also move on click attempt (for mobile/touch)
 noBtn.addEventListener("click", function(e) {
     e.preventDefault();
+    e.stopPropagation();
     moveButton();
 });
 
