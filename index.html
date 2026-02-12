@@ -2,193 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Will you be my valentine?</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffeaa7);
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0;
-        position: relative;
         overflow: hidden;
     }
 
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Floating hearts animation */
     @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
-        50% { transform: translateY(-20px) rotate(5deg); opacity: 0.6; }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
     }
 
-    .floating-heart {
+    .hearts {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .heart {
         position: absolute;
-        font-size: 2rem;
+        font-size: 2em;
         animation: float 3s ease-in-out infinite;
+        opacity: 0.7;
     }
-
-    .heart1 { left: 10%; top: 20%; animation-delay: 0s; }
-    .heart2 { left: 20%; top: 60%; animation-delay: 1s; }
-    .heart3 { right: 15%; top: 30%; animation-delay: 2s; }
-    .heart4 { right: 10%; bottom: 20%; animation-delay: 1.5s; }
-    .heart5 { left: 50%; top: 10%; animation-delay: 0.5s; }
 
     .box {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 50px 40px;
-        border-radius: 30px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
         text-align: center;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 105, 180, 0.3);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         position: relative;
-        width: 90%;
-        max-width: 450px;
-        border: 2px solid rgba(255, 105, 180, 0.2);
-        animation: slideUp 0.8s ease-out;
-    }
-
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        width: 320px;
+        z-index: 10;
     }
 
     h1 {
         margin-bottom: 15px;
-        color: #ff1493;
+        color: #ff4d6d;
         font-size: 2.5em;
-        font-weight: 700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        letter-spacing: -0.5px;
+        animation: pulse 1.5s ease-in-out infinite;
     }
 
-    .subtitle {
-        font-size: 1.1em;
-        color: #666;
-        margin-bottom: 30px;
-        font-weight: 500;
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
     }
 
     p {
-        font-size: 1.05em;
-        color: #555;
-        margin-bottom: 25px;
+        font-size: 1.1em;
+        color: #333;
+        margin: 15px 0;
         line-height: 1.6;
     }
 
-    .button-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 35px 0;
-        position: relative;
-        height: 60px;
+    .subtitle {
+        color: #ff6b9d;
+        font-weight: 500;
+        margin-bottom: 20px;
     }
 
     button {
-        padding: 14px 35px;
+        padding: 12px 25px;
         border: none;
-        border-radius: 50px;
-        font-size: 1.1em;
-        font-weight: 600;
+        border-radius: 10px;
+        font-size: 16px;
         cursor: pointer;
-        margin: 8px;
-        transition: all 0.2s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    button:active {
-        transform: scale(0.98);
+        margin: 10px;
+        transition: 0.2s;
     }
 
     #okBtn {
-        background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+        background: linear-gradient(135deg, #ff6b9d, #ff4d6d);
         color: white;
-        min-width: 120px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
     }
 
     #okBtn:hover {
-        transform: scale(1.08);
-        box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
-        background: linear-gradient(135deg, #ff0080 0%, #ff1493 100%);
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
     }
 
     #noBtn {
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        background: #ff4d4d;
         color: white;
-        position: fixed;
-        min-width: 120px;
-        z-index: 999;
+        position: absolute;
+        font-weight: bold;
     }
 
     #noBtn:hover {
-        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        background: #ff2020;
     }
 
     #message {
-        margin-top: 25px;
-        font-weight: bold;
-        font-size: 1.3em;
-        color: #ff1493;
-        display: none;
-        animation: fadeInScale 0.5s ease;
-    }
-
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .hearts-overflow {
-        display: none;
         margin-top: 20px;
-        font-size: 3em;
-        animation: heartBurst 0.8s ease-out;
+        font-weight: bold;
+        color: #ff4d6d;
+        display: none;
+        font-size: 1.3em;
+        animation: fadeIn 0.5s ease-in;
     }
 
-    @keyframes heartBurst {
-        0% {
-            opacity: 1;
-            transform: scale(0);
-        }
-        50% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-            transform: scale(1.2) translateY(-20px);
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 
     .modal {
@@ -199,347 +126,161 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.95);
         animation: fadeIn 0.3s ease-in;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
     .modal-content {
-        background: linear-gradient(135deg, #fff5f7 0%, #ffe4e9 100%);
-        margin: 5% auto;
-        padding: 30px;
-        border-radius: 25px;
-        width: 90%;
-        max-width: 550px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        animation: slideDown 0.3s ease-out;
-        border: 2px solid #ff69b4;
-    }
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: none;
+        animation: none;
     }
 
     .close-btn {
-        color: #ff1493;
-        float: right;
-        font-size: 32px;
+        color: white;
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
         font-weight: bold;
         cursor: pointer;
         border: none;
         background: none;
-        transition: 0.2s;
-        padding: 0;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
+        z-index: 1001;
     }
 
     .close-btn:hover {
-        color: #ff0080;
-        background-color: rgba(255, 20, 147, 0.1);
-        transform: scale(1.1);
+        color: #ff4d6d;
     }
 
     .video-container {
-        width: 100%;
-        max-width: 500px;
-        margin: 20px auto;
+        width: 90%;
+        max-width: 800px;
+        height: auto;
+        max-height: 90vh;
     }
 
     video {
         width: 100%;
-        height: auto;
-        border-radius: 15px;
-        background-color: #000;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal h2 {
-        color: #ff1493;
-        margin-bottom: 20px;
-        font-size: 1.8em;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-        body {
-            padding: 20px;
-        }
-
-        .box {
-            padding: 40px 25px;
-            width: 100%;
-            max-width: 100%;
-            border-radius: 25px;
-        }
-
-        h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 0.95em;
-        }
-
-        .button-container {
-            gap: 10px;
-            margin: 25px 0;
-            height: auto;
-        }
-
-        button {
-            padding: 12px 25px;
-            font-size: 0.95em;
-            letter-spacing: 0.5px;
-        }
-
-        #okBtn {
-            min-width: 100px;
-            position: relative;
-        }
-
-        #noBtn {
-            min-width: 100px;
-        }
-
-        #message {
-            font-size: 1.1em;
-            margin-top: 20px;
-        }
-
-        .modal-content {
-            width: 95%;
-            margin: 20% auto;
-            padding: 25px;
-        }
-
-        .modal h2 {
-            font-size: 1.5em;
-        }
-
-        .video-container {
-            max-width: 100%;
-        }
-
-        .floating-heart {
-            font-size: 1.5rem;
-        }
-
-        .heart1 { left: 5%; top: 15%; }
-        .heart2 { left: 15%; bottom: 15%; }
-        .heart3 { right: 10%; top: 25%; }
-        .heart4 { right: 5%; bottom: 25%; }
-        .heart5 { left: 45%; top: 5%; }
-    }
-
-    @media (max-width: 480px) {
-        .box {
-            padding: 30px 20px;
-            border-radius: 20px;
-        }
-
-        h1 {
-            font-size: 1.6em;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            font-size: 0.9em;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 0.9em;
-        }
-
-        button {
-            padding: 11px 20px;
-            font-size: 0.85em;
-            letter-spacing: 0.3px;
-        }
-
-        .button-container {
-            gap: 8px;
-            margin: 20px 0;
-            height: auto;
-        }
-
-        #okBtn {
-            position: relative;
-        }
-
-        #noBtn {
-            position: fixed;
-        }
-
-        .modal-content {
-            margin: 30% auto;
-            padding: 20px;
-        }
-
-        .floating-heart {
-            font-size: 1.2rem;
-        }
-
-        .hearts-overflow {
-            font-size: 2.5em;
-        }
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
     }
 </style>
 </head>
 
 <body>
 
-<!-- Floating Hearts Background -->
-<div class="floating-heart heart1">❤️</div>
-<div class="floating-heart heart2">💕</div>
-<div class="floating-heart heart3">💗</div>
-<div class="floating-heart heart4">💖</div>
-<div class="floating-heart heart5">💝</div>
+<div class="hearts" id="hearts"></div>
 
 <div class="box">
-    <h1>Will You Be My Valentine? 💕</h1>
-    <p class="subtitle">A special someone is asking something special...</p>
-    <p>Every moment with you is a moment I cherish. Your smile, your laugh, your presence... everything about you makes my heart skip a beat. 💓</p>
-    <p>So, will you make me the happiest person and be my valentine?</p>
+    <h1>Will you be my valentine? ❤️</h1>
+    <p class="subtitle">I love you so much 💕</p>
+    <p>You make my heart skip a beat every time I see you 😊</p>
+    <p style="margin-top: 25px; font-style: italic; color: #ff6b9d;">Say YES and let me show you how special you are!</p>
 
-    <div class="button-container">
-        <button id="okBtn" onclick="accepted()">YES! 💕</button>
-        <button id="noBtn">NO</button>
-    </div>
+    <button id="okBtn" onclick="accepted()">YES 💕</button>
+    <button id="noBtn">NO</button>
 
-    <div id="message">🎉 You just made me the happiest! You're amazing! 💕</div>
-    <div class="hearts-overflow">❤️ 💕 💗 💖 💝</div>
+    <div id="message">Thank you for making me the happiest! 🥰💕</div>
 </div>
 
 <!-- Video Modal -->
 <div id="reelModal" class="modal">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
     <div class="modal-content">
-        <button class="close-btn" onclick="closeModal()">&times;</button>
-        <h2>Thanks for saying YES! 💕</h2>
-        <p style="color: #666; font-size: 1em;">Here's something special for you...</p>
         <div class="video-container">
-            <video controls autoplay muted>
+            <video autoplay>
                 <source src="thanks.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
-        <p style="color: #ff1493; font-weight: bold; margin-top: 20px; font-size: 1.1em;">You mean everything to me! 💗</p>
     </div>
 </div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
-let clickCount = 0;
+const box = document.querySelector(".box");
 
 function moveButton() {
-    // Get random position within viewport
-    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    const boxRect = box.getBoundingClientRect();
+
+    const maxX = boxRect.width - noBtn.offsetWidth - 20;
+    const maxY = boxRect.height - noBtn.offsetHeight - 20;
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
 
-    // Set position using fixed positioning
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-    
-    clickCount++;
 }
 
-// Move on hover
 noBtn.addEventListener("mouseenter", moveButton);
-
-// Also move on click attempt (for mobile/touch)
-noBtn.addEventListener("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    moveButton();
-});
 
 function accepted() {
     document.getElementById("message").style.display = "block";
-    document.querySelector(".hearts-overflow").style.display = "block";
     document.getElementById("reelModal").style.display = "block";
     
-    // Add confetti-like effect with hearts falling
-    createHeartConfetti();
+    // Auto-play video with sound
+    const video = document.querySelector("video");
+    if (video) {
+        video.play();
+    }
 }
 
 function closeModal() {
     document.getElementById("reelModal").style.display = "none";
     // Pause video when modal closes
-    var video = document.querySelector("video");
+    const video = document.querySelector("video");
     if (video) {
         video.pause();
+        video.currentTime = 0;
     }
 }
-
-function createHeartConfetti() {
-    const hearts = ['❤️', '💕', '💗', '💖', '💝'];
-    for (let i = 0; i < 10; i++) {
-        const heart = document.createElement('div');
-        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.position = 'fixed';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.top = '-10px';
-        heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        heart.style.pointerEvents = 'none';
-        heart.style.animation = 'fall 3s ease-out forwards';
-        document.body.appendChild(heart);
-        
-        setTimeout(() => heart.remove(), 3000);
-    }
-}
-
-// Add CSS animation for falling hearts
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fall {
-        to {
-            transform: translateY(100vh) rotate(360deg);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {
-    var modal = document.getElementById("reelModal");
+    const modal = document.getElementById("reelModal");
     if (event.target == modal) {
         modal.style.display = "none";
         // Pause video when modal closes
-        var video = document.querySelector("video");
+        const video = document.querySelector("video");
         if (video) {
             video.pause();
+            video.currentTime = 0;
         }
     }
 }
+
+// Create floating hearts
+function createHearts() {
+    const heartsContainer = document.getElementById("hearts");
+    const hearts = ['❤️', '💕', '💖', '💗', '💝'];
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+        heartsContainer.appendChild(heart);
+    }
+}
+
+// Initialize hearts on page load
+window.addEventListener('DOMContentLoaded', createHearts);
 </script>
 
 </body>
