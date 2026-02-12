@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sorry Sister</title>
+<title>Will you be my valentine?</title>
 
 <style>
     body {
@@ -28,6 +28,12 @@
     h1 {
         margin-bottom: 25px;
         color: #ff4d6d;
+    }
+
+    p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 30px;
     }
 
     button {
@@ -61,19 +67,39 @@
         color: #4CAF50;
         display: none;
     }
+
+    .instagram-link {
+        margin-top: 25px;
+        display: none;
+    }
+
+    .instagram-link a {
+        color: #ff4d6d;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .instagram-link a:hover {
+        text-decoration: underline;
+    }
 </style>
 </head>
 
 <body>
 
 <div class="box">
-    <h1>Sorry Sister 🥺</h1>
-    <p>Please forgive me?</p>
+    <h1>Will you be my valentine? ❤️</h1>
+    <p>Say Yes!</p>
 
-    <button id="okBtn" onclick="accepted()">OK</button>
+    <button id="okBtn" onclick="accepted()">YES</button>
     <button id="noBtn">NO</button>
 
-    <div id="message">Yay! Thank you for forgiving me ❤️</div>
+    <div id="message">You're the best! 💕</div>
+    <div class="instagram-link">
+        <p>Check out this reel:</p>
+        <a href="https://www.instagram.com/reel/DQ4MfMNjdAr/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Watch on Instagram 🎬</a>
+    </div>
 </div>
 
 <script>
@@ -97,6 +123,7 @@ noBtn.addEventListener("mouseenter", moveButton);
 
 function accepted() {
     document.getElementById("message").style.display = "block";
+    document.querySelector(".instagram-link").style.display = "block";
 }
 </script>
 
